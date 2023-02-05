@@ -10,6 +10,7 @@
 
 #include <SDL.h>
 #include <SDL_audio.h>
+#include <igor.h>
 
 #include <sstream>
 #include <cassert>
@@ -846,7 +847,7 @@ int process_general_transcription(struct whisper_context * ctx, audio_async &aud
     std::vector<float> pcmf32_cur;
     std::vector<float> pcmf32_prompt;
 
-    const std::string k_prompt = "Ok Whisper, start listening for commands.";
+    const std::string k_prompt = "Machina, audi.";
 
     fprintf(stderr, "\n");
     fprintf(stderr, "%s: general-purpose mode\n", __func__);
@@ -931,6 +932,12 @@ int process_general_transcription(struct whisper_context * ctx, audio_async &aud
 
                     fprintf(stdout, "%s: Command '%s%s%s', (t = %d ms)\n", __func__, "\033[1m", command.c_str(), "\033[0m", (int) t_ms);
                     fprintf(stdout, "\n");
+                  
+                    std::cout << "> passing thread to Rust sourced dll with argument \""+command+"\"" << std::endl;
+                    Response response = parse_command(command.c_str());
+
+                    if(response == Response::DoNothing) std::cout << "> thread resumed on c++, receiving command (DoNothing)" << std::endl;
+                    else if(response == Response::Shutdown) std::cout << "> thread resumed on c++, receiving command (Shutdown)" << std::endl;
                 }
 
                 audio.clear();
