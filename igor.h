@@ -1,3 +1,9 @@
+#include <cstdarg>
+#include <cstdint>
+#include <cstdlib>
+#include <ostream>
+#include <new>
+
 enum class Response : uint8_t {
   DoNothing,
   Shutdown,
