@@ -10,7 +10,7 @@
 
 #include <SDL.h>
 #include <SDL_audio.h>
-#include <igor.h>
+//#include <igor.h>
 
 #include <sstream>
 #include <cassert>
@@ -932,11 +932,14 @@ int process_general_transcription(struct whisper_context * ctx, audio_async &aud
 
                     fprintf(stdout, "%s: Command '%s%s%s', (t = %d ms)\n", __func__, "\033[1m", command.c_str(), "\033[0m", (int) t_ms);
                     fprintf(stdout, "\n");
-                  
+
+                    /*
                     Response response = parse_command(command.c_str());
 
                     if(response == Response::DoNothing) fprintf(stdout, "> thread resumed on c++, receiving command (DoNothing)");
                     else if(response == Response::Shutdown) fprintf(stdout, "> thread resumed on c++, receiving command (Shutdown)");
+
+                    */
                 }
 
                 audio.clear();
